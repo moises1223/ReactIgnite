@@ -1,7 +1,6 @@
 // props:{author: "", content: ""}
 
-export function Button(props){
-    console.log(props)
+export function Post (props){
     return(
     <div>
         <p><strong>{props.author}</strong></p>
