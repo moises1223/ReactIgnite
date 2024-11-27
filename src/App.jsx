@@ -8,6 +8,10 @@ export function App() {
         author="Diego Fernandes" 
         content="lorem ipsum lorem ipsum"
       />
+      <Button 
+        author="Araujo souza" 
+        content="lorem ipsum lorem ipsum"
+      />
      
     </div>
   )

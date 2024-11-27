@@ -2,6 +2,11 @@
 
 export function Button(props){
     console.log(props)
-    return <p>Button</p>
+    return(
+    <div>
+        <p><strong>{props.author}</strong></p>
+        <p>{props.content}</p>
+    </div>
+    )
 }
  
