@@ -14,7 +14,6 @@ export function App() {
         <Sidebar />
 
         <main>
-
           <Post
             author="Diego Fernandes"
             content="lorem ipsum lorem ipsum"

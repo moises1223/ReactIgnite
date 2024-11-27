@@ -5,10 +5,10 @@ export function Header() {
     return (
         <header className={styles.Header}>
           
-            <strong >
+        
                 <img src="/src/assets/icon-logo.png" alt="Logotipo da" />
                 <p>Ignite Feed</p>
-            </strong>
+            
         </header>
     )
 }
