@@ -4,6 +4,20 @@ import { Sidebar } from './components/Sidebar'
 import styles from './App.module.css'
 import './global.css'
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: '',
+      name: '',
+      role: ''
+    },
+    content: [
+      
+    ]
+  },
+];
+
 export function App() {
   return (
     <div>
@@ -23,6 +37,7 @@ export function App() {
             author="Araujo souza"
             content="lorem ipsum lorem ipsum"
           />
+
           <Post
             author="Araujo souza"
             content="lorem ipsum lorem ipsum"
