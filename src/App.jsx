@@ -1,8 +1,8 @@
+import { Post } from './components/Post'
 import { Header } from './components/Header'
-import { Post } from './post'
+import { Sidebar } from './components/Sidebar'
 import styles from './App.module.css'
 import './global.css'
-import { Sidebar } from './components/Sidebar'
 
 export function App() {
   return (
@@ -18,10 +18,16 @@ export function App() {
             author="Diego Fernandes"
             content="lorem ipsum lorem ipsum"
           />
+
           <Post
             author="Araujo souza"
             content="lorem ipsum lorem ipsum"
           />
+          <Post
+            author="Araujo souza"
+            content="lorem ipsum lorem ipsum"
+          />
+
         </main>
       </div>
 
