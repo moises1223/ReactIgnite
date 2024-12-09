@@ -1,39 +1,63 @@
+
+import { format, formatDistanceToNow } from "date-fns"
+import ptBR from 'date-fns/locale/pt-BR'
 import { Avatar } from "./Avatar"
 import { Comment } from "./Comment"
+
 import styles from "./Post.module.css"
 
-export function Post() {
+const comments
+
+
+
+export function Post({ author, publishedAt, content }) {
+    const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm", {
+        locale: ptBR
+    });
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true
+    });
+
     return (
         <article className={styles.post}>
             <header className={styles.header}>
                 <div>
                     <div className={styles.author}>
                         <Avatar
-                            src="https://github.com/moises1223.png"
+                            src={author.avatarUrl}
                             hasBorder
                         />
                         <div className={styles.authorInfo}>
-                            <strong className={styles.username}> Moisés Souza </strong>
-                            <span className={styles.role}>Web developer</span>
+                            <strong className={styles.username}>{author.name} </strong>
+                            <span className={styles.role}>{author.role}</span>
                         </div>
                     </div>
                 </div>
-                <time className={styles.time} title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:30">Públicado há 1h</time>
+
+                <time className={styles.time} title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+                    {publishedDateRelativeToNow}
+                </time>
+
             </header>
+
             <div className={styles.content}>
-                <p> Oi ! 😁 </p>
-                <p>Hoje eu joguei muito de odin e foi muito divertido eu tenho 5 gatos e eu gosto muito de dinheiro. </p>
-                <p>Acessem meu site: </p>
-                <p> 😉 <a href="https://abystract.com.br/"> abystract.com.br</a> </p>
-                <p>
-                    <a href="#"> #empresafoda</a>
-                    <a href="#"> #melhorempresadomundo</a>
-                    <a href="#"> #tech</a>
-                </p>
+                {content.map(line => {
+                    if (line.type == 'paragraph') {
+                        return <p>{line.content}</p>
+                    }
+                    else if (line.type == 'link') {
+                        return <p><a href="">{line.content}</a></p>
+                    }
+                })}
             </div>
+
             <form className={styles.commentForm}>
+
                 <strong className={styles.title}>Deixe seu feedback</strong>
+
                 <textarea className={styles.comment} placeholder="Deixe um comentário" />
+
                 <div className={styles.divBtn}>
                     <button className={styles.commentButton} type="submit">Publicar</button>
                 </div>

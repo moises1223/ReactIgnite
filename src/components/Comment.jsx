@@ -9,6 +9,8 @@ export function Comment() {
                 src="https://github.com/HenriqueDeAssuncao.png"
                 hasBorder={false}
             />
+
+                    
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header className={styles.headerComment}>
