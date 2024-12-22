@@ -10,14 +10,6 @@ import { useState } from "react"
 
 export function Post({ author, publishedAt, content }) {
 
-    const [comments, setComments] = useState(
-        [
-            1,
-            2,
-
-        ]
-    )
-
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm", {
         locale: ptBR
     });
@@ -26,17 +18,44 @@ export function Post({ author, publishedAt, content }) {
         addSuffix: true
     });
 
+    const [comments, setComments] = useState(
+        [
+            'Post muito bacana, hein?!'
+        ]
+    )
+
+    const [newCommentText, setNewCommentText] = useState('')
+
     function handleCreateNewComment() {
 
         event.preventDefault()
-        setComments([...comments, comments.length + 1])
-        console.log(comments)
+        setComments([...comments, newCommentText]);
+        setNewCommentText('');
+    }
+
+    function handleNewCommentChange() {
+        event.target.setCustomValidity('')
+        setNewCommentText(event.target.value)
+    }
+
+    function handleNewCommentInvalid() {
+        event.target.setCustomValidity('Este campo é obrigatório!')
+    }
+
+    function deleteComment(commentToDelete) {
+        const commentsWithoutDeletedOne = comments.filter(comment => {
+            return comment !== commentToDelete;
+        })
+        setComments(commentsWithoutDeletedOne);
 
     }
+
+    const isNewCommentEmpty = newCommentText.length==0
 
     return (
         <article className={styles.post}>
             <header className={styles.header}>
+
                 <div>
                     <div className={styles.author}>
                         <Avatar
@@ -59,10 +78,10 @@ export function Post({ author, publishedAt, content }) {
             <div className={styles.content}>
                 {content.map(line => {
                     if (line.type == 'paragraph') {
-                        return <p>{line.content}</p>
+                        return <p key={line.content}>{line.content}</p>
                     }
                     else if (line.type == 'link') {
-                        return <p><a href="">{line.content}</a></p>
+                        return <p key={line.content}><a href="">{line.content}</a></p>
                     }
                 })}
             </div>
@@ -71,19 +90,36 @@ export function Post({ author, publishedAt, content }) {
 
                 <strong className={styles.title}>Deixe seu feedback</strong>
 
-                <textarea className={styles.comment} placeholder="Deixe um comentário" />
+                <textarea
+                    name="comment"
+                    className={styles.comment}
+                    placeholder="Deixe um comentário"
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}
+                    required
+                    onInvalid={handleNewCommentInvalid}
+                />
 
                 <div className={styles.divBtn}>
-                    <button className={styles.commentButton} type="submit">Publicar</button>
+                    <button
+                        disabled={isNewCommentEmpty}
+                        className={styles.commentButton}
+                        type="submit">Publicar
+                    </button>
                 </div>
             </form>
 
             <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment />
+                    return (
+                        <Comment
+                            key={comment}
+                            content={comment}
+                            onDeleteComment={deleteComment}
+                        />
+                    )
                 })}
             </div>
-
         </article>
     )
 }
